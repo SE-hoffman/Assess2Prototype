@@ -1,14 +1,4 @@
-// class blocks {
-//     constructor(x, y) {
-//         this.x = x;
-//         this.y = y;
-//         blocklocations = [
-//             []
-//         ]
-//     }
-// }
-
-
+//block x,y locations 
 var blocks = [
     [7, 6],
     [8, 6],
@@ -83,24 +73,26 @@ var Game = {
         this.player = new Player(10, 10);
         this.enemy = new Enemy(0, 0);
     },
+// draw display and game on screen 
     draw: function () {
         this.display.clear();
         this.display.draw(this.player.x, this.player.y, "@");
         this.display.draw(this.enemy.x, this.enemy.y, "%");
+        //for loop to run over each block x,y and draw
         for (const block of blocks) {
             console.log(block);
             this.display.draw(block[0],block[1],"#");
         }
-        //this.display.draw
 
     },
+    //move counter + every time update runs (per turn), allowing enemy movement to rely on player (turn based playing)
     update: function () {
         this.moveCounter++;
     }
 
 };
 
-// Basically linear search
+// Basically a linear search
 function collision(position) {
     // If the position is in the blocks array, return false
 
@@ -118,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Setup rot.js stuff
     Game.init();
     Game.draw();
-    // Do something whenever we press a key
+    // Do something whenever key is pressed
     document.addEventListener("keydown", function (event) {
         // Player movement
         switch (event.key) {
@@ -144,25 +136,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
-        // Set the ememy on the patrol path
-        // % is modulous math thing
         // console.log(Game.moveCounter % 4);
-
-        // TODO: Get the patrol path for Game.enemy
         // console.log(Game.enemy.patrolPath[Game.moveCounter % 4]);
 
-        // TODO: Set the x,y based on the current path position
+        // % is modulus, allows for capping and not allowing array to go over 
 
         Game.enemy.x = Game.enemy.patrolPath[Game.moveCounter % Game.enemy.patrolPath.length][0];
         Game.enemy.y = Game.enemy.patrolPath[Game.moveCounter % Game.enemy.patrolPath.length][1];
 
-        // Game things
-
-        // Update the game
+     // Update the game
         Game.update();
         // Draw game
         Game.draw();
         console.log(Game.player);
     });
-    // TODO: if the key is an arrow key or WASD, move the player variables and draw
 });
