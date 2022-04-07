@@ -60,7 +60,7 @@ var Game = {
 
         // Player stuff
         this.player = new Player(10, 10);
-        this.enemy = new Enemy(18, 1);
+        this.enemy = new Enemy(0, 0);
     },
     draw: function () {
         this.display.clear();
